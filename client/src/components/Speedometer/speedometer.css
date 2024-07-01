@@ -1,10 +1,10 @@
-.speedometer {
-    text-align: center;
-    margin-top: 50px;
-  }
-  
-  .speed-display {
-    font-size: 48px;
-    margin-top: 20px;
-  }
-  
+.speedometer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* .speedometer {
+  width: 50%;
+} */

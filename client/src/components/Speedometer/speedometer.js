@@ -1,31 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-import './speedometer.css'; 
+import ReactSpeedometer from "react-d3-speedometer";
+import './speedometer.css'; // Import the CSS file
 
-const socket = io('http://localhost:5000'); 
+const socket = io('http://localhost:5000');
 
-const Speedometer = () => {
+const SpeedometerComponent = () => {
   const [speed, setSpeed] = useState(0);
 
   useEffect(() => {
     socket.on('new-speed-data', (data) => {
-        console.log("data",data);
       setSpeed(data.speed);
     });
 
+    // Clean up the effect
     return () => {
       socket.off('new-speed-data');
     };
   }, []);
 
   return (
-    <div className="speedometer">
-      <h1>Speedometer</h1>
-      <div className="speed-display">
-        <h2>{speed} km/h</h2>
-      </div>
+    <div>
+         <h1>Speedometer</h1>
+    <div className="speedometer-container">
+      <ReactSpeedometer
+        className="speedometer"
+        maxValue={200}
+        value={speed}
+        needleColor="red"
+        startColor="green"
+        segments={10}
+        endColor="red"
+        textColor="black"
+      />
+    </div>
     </div>
   );
 };
 
-export default Speedometer;
+export default SpeedometerComponent;
